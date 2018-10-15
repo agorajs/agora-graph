@@ -1,6 +1,7 @@
 import Delaunator from 'delaunator'
 import _ from 'lodash'
 import { Edge, Node } from './graph'
+import { getAllOverlaps } from './overlap';
 
 export default delaunay
 
@@ -47,4 +48,65 @@ function addable(hastable: boolean[][], i: number, j: number) {
     return true
   }
   return false
+}
+
+/**
+ * augment the delaunay triangulation with the overlaping nodes
+ * @param nodes list of nodes
+ * @param padding padding between nodes
+ */
+export function augmented(nodes: Node[], padding: number): Edge[] {
+  return merge(delaunay(nodes), overlaps(nodes, padding))
+}
+
+/**
+ * Get all overlaps of the list of nodes
+ * @param nodes
+ * @param padding
+ */
+function overlaps(nodes: Node[], padding: number): Edge[] {
+  return _(getAllOverlaps(nodes, padding))
+    .map(pair => {
+      pair.sort((a, b) => a.index - b.index)
+      return {
+        source: pair[0].index,
+        target: pair[1].index
+      }
+    })
+    .sortBy(['source', 'target'])
+    .value()
+}
+
+/**
+ * Merging multiple edge list while removing redundancy
+ * @param edges1
+ * @param edges2
+ */
+function merge(edges1: Edge[], edges2: Edge[]): Edge[] {
+  const [iterated, iteratee] =
+    edges1.length <= edges2.length ? [edges1, edges2] : [edges2, edges1]
+
+  const added : Edge[] = []
+
+  _.forEach(iterated, e1 => {
+    let empty = true
+    _.forEach(iteratee, e2 => {
+      if (e1.source === e2.source && e1.target === e2.target) {
+        empty = false
+        return false
+      }
+      if (
+        (e1.source === e2.source && e1.target < e2.target) ||
+        e1.source < e2.source
+      ) {
+        added.push(e1)
+        empty = false
+        return false
+      }
+    })
+
+    if (empty) added.push(e1)
+  })
+
+  return _.concat(added, iteratee)
 }
