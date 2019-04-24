@@ -1,6 +1,6 @@
 {
   "name": "agora-graph",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "graph tools for agora framework",
   "main": "dist/index.js",
   "author": "Fati CHEN <chen@lirmm.fr>",
