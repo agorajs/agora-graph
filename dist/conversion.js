@@ -19,7 +19,7 @@ function toPolar(vector, precision) {
     return {
         length: vector_1.length(vector),
         theta: rad,
-        angle: round(rad * 180 / Math.PI, precision)
+        angle: round((rad * 180) / Math.PI, precision)
     };
 }
 exports.toPolar = toPolar;
