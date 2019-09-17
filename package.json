@@ -12,7 +12,7 @@
     "@types/delaunator": "^2.0.0",
     "@types/lodash": "^4.14.116",
     "delaunator": "^3.0.2",
-    "lodash": "^4.17.11"
+    "lodash": "4.17.15"
   },
   "devDependencies": {
     "typescript": "^3.6.3"
