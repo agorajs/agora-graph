@@ -1,3 +1,4 @@
+export * from './algorithm';
 export * from './box';
 export * from './conversion';
 export * from './cropped';

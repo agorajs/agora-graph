@@ -3,6 +3,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
+__export(require("./algorithm"));
 __export(require("./box"));
 __export(require("./conversion"));
 __export(require("./cropped"));
