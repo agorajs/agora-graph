@@ -1,8 +1,8 @@
-import _ from 'lodash'
-import { Node, CartesianVector, Graph, Edge } from './graph'
-import { left, right } from './box'
-import { Δx, Δy, normX, normY } from './point'
-import { NodeMap } from './node-map'
+import _ from 'lodash';
+import { Node, CartesianVector, Graph, Edge } from './graph';
+import { left, right } from './box';
+import { normX, normY } from './point';
+import { NodeMap } from './node-map';
 
 /**
  * @param n1
@@ -12,7 +12,7 @@ import { NodeMap } from './node-map'
  * @returns true if the nodes overlap
  */
 export function overlap(n1: Node, n2: Node, padding: number = 0): boolean {
-  return overlapX(n1, n2, padding) && overlapY(n1, n2, padding)
+  return overlapX(n1, n2, padding) && overlapY(n1, n2, padding);
 }
 
 /**
@@ -23,7 +23,7 @@ export function overlap(n1: Node, n2: Node, padding: number = 0): boolean {
  * @returns true if the nodes overlap on x
  */
 export function overlapX(n1: Node, n2: Node, padding: number = 0): boolean {
-  return normX(n1, n2) < (n1.width + n2.width) / 2 + +padding
+  return normX(n1, n2) < (n1.width + n2.width) / 2 + +padding;
 }
 
 /**
@@ -34,7 +34,7 @@ export function overlapX(n1: Node, n2: Node, padding: number = 0): boolean {
  * @returns true if the nodes overlap on y
  */
 export function overlapY(n1: Node, n2: Node, padding: number = 0): boolean {
-  return normY(n1, n2) < (n1.height + n2.height) / 2 + +padding
+  return normY(n1, n2) < (n1.height + n2.height) / 2 + +padding;
 }
 
 /**
@@ -43,21 +43,21 @@ export function overlapY(n1: Node, n2: Node, padding: number = 0): boolean {
  * @returns true if at least two nodes of the list overlap
  */
 export function hasOverlap(nodes: Node[], padding: number = 0): boolean {
-  let lap = false
-  const sorted = _.sortBy(nodes, node => left(node))
+  let lap = false;
+  const sorted = _.sortBy(nodes, node => left(node));
 
   _.forEach(sorted, (n1, index) => {
     for (let j = index + 1; j < nodes.length; j++) {
-      const n2 = sorted[j]
+      const n2 = sorted[j];
 
       if (overlap(n1, n2, padding)) {
-        lap = true
-        return false // exit _.forEach
-      } else if (left(n2) > right(n1) + padding) break
+        lap = true;
+        return false; // exit _.forEach
+      } else if (left(n2) > right(n1) + padding) break;
     }
-  })
+  });
 
-  return lap
+  return lap;
 }
 
 /**
@@ -71,14 +71,14 @@ export function edgeOverlap(
   edges: Edge[],
   padding: number = 0
 ): boolean {
-  let present = false
+  let present = false;
   _.forEach(edges, edge => {
     if (overlap(map[edge.source], map[edge.target], padding)) {
-      present = true
-      return false
+      present = true;
+      return false;
     }
-  })
-  return present
+  });
+  return present;
 }
 
 /**
@@ -88,17 +88,17 @@ export function edgeOverlap(
  * @returns the list of all overlaps of the graph.
  */
 export function getAllOverlaps(nodes: Node[], padding: number = 0): Node[][] {
-  const sorted = _.sortBy(nodes, node => left(node))
-  const overlaps: Node[][] = []
+  const sorted = _.sortBy(nodes, node => left(node));
+  const overlaps: Node[][] = [];
 
   _.forEach(sorted, (n1, index) => {
     for (let j = index + 1; j < nodes.length; j++) {
-      const n2 = sorted[j]
+      const n2 = sorted[j];
 
-      if (overlap(n1, n2, padding)) overlaps.push([n1, n2])
-      else if (left(n2) > right(n1) + padding) break
+      if (overlap(n1, n2, padding)) overlaps.push([n1, n2]);
+      else if (left(n2) > right(n1) + padding) break;
     }
-  })
+  });
 
-  return overlaps
+  return overlaps;
 }
