@@ -1,7 +1,6 @@
-import { Point, CartesianVector } from './graph'
-import { magnitude, vector } from './vector'
+import { Point, CartesianVector } from './graph';
 
-export { deltaX as Δx, deltaY as Δy, delta as Δ }
+export { deltaX as Δx, deltaY as Δy, delta as Δ };
 
 /**
  * @param {Point} p1 first point
@@ -10,7 +9,7 @@ export { deltaX as Δx, deltaY as Δy, delta as Δ }
  * @returns creates a vector (p1, p2) using p1,p2
  */
 export function delta(p1: Point, p2: Point): CartesianVector {
-  return { x: deltaX(p1, p2), y: deltaY(p1, p2) }
+  return { x: deltaX(p1, p2), y: deltaY(p1, p2) };
 }
 
 /**
@@ -20,7 +19,7 @@ export function delta(p1: Point, p2: Point): CartesianVector {
  * @returns {number} the Δ (x axis) between two points
  */
 export function deltaX(p1: Point, p2: Point): number {
-  return p2.x - p1.x
+  return p2.x - p1.x;
 }
 
 /**
@@ -30,7 +29,7 @@ export function deltaX(p1: Point, p2: Point): number {
  * @returns {number} the Δ (y axis) between two points
  */
 export function deltaY(p1: Point, p2: Point): number {
-  return p2.y - p1.y
+  return p2.y - p1.y;
 }
 
 /**
@@ -40,7 +39,7 @@ export function deltaY(p1: Point, p2: Point): number {
  * @returns {number} the norm (x axis) between two points
  */
 export function normX(p1: Point, p2: Point): number {
-  return Math.abs(deltaX(p1, p2))
+  return Math.abs(deltaX(p1, p2));
 }
 
 /**
@@ -50,7 +49,7 @@ export function normX(p1: Point, p2: Point): number {
  * @returns {number} the norm (y axis) between two points
  */
 export function normY(p1: Point, p2: Point): number {
-  return Math.abs(deltaY(p1, p2))
+  return Math.abs(deltaY(p1, p2));
 }
 
 /**
@@ -59,5 +58,5 @@ export function normY(p1: Point, p2: Point): number {
  * @param p2
  */
 export function norm(p1: Point, p2: Point): number {
-  return Math.hypot(deltaX(p1, p2), deltaY(p1, p2))
+  return Math.hypot(deltaX(p1, p2), deltaY(p1, p2));
 }

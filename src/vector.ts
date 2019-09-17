@@ -1,16 +1,16 @@
-import { Point, CartesianVector } from './graph'
-import { delta } from './point'
+import { CartesianVector } from './graph';
+import { delta } from './point';
 
-export { magnitude as length }
+export { magnitude as length };
 
-export { delta as vector }
+export { delta as vector };
 
 /**
  * length of the vector
  * @param vector
  */
 export function magnitude(vector: CartesianVector): number {
-  return Math.hypot(vector.x, vector.y)
+  return Math.hypot(vector.x, vector.y);
 }
 
 /**
@@ -19,7 +19,7 @@ export function magnitude(vector: CartesianVector): number {
  * @param v2
  */
 export function sum(v1: CartesianVector, v2: CartesianVector): CartesianVector {
-  return { x: v1.x + v2.x, y: v1.y + v2.y }
+  return { x: v1.x + v2.x, y: v1.y + v2.y };
 }
 
 /**
@@ -31,7 +31,7 @@ export function diff(
   v1: CartesianVector,
   v2: CartesianVector
 ): CartesianVector {
-  return { x: v1.x - v2.x, y: v1.y - v2.y }
+  return { x: v1.x - v2.x, y: v1.y - v2.y };
 }
 
 /**
@@ -41,7 +41,7 @@ export function diff(
  * @param k
  */
 export function mult(v: CartesianVector, k: number): CartesianVector {
-  v.x *= k
-  v.y *= k
-  return v
+  v.x *= k;
+  v.y *= k;
+  return v;
 }

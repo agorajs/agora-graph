@@ -1,5 +1,4 @@
-import { Box, Graph } from './graph'
-import { right, bottom } from './box'
+import { Box } from './graph'
 
 /**
  *
