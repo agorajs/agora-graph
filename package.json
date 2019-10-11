@@ -1,12 +1,12 @@
 {
   "name": "agora-graph",
-  "version": "1.1.1",
-  "description": "graph tools for agora framework",
+  "version": "1.2.0",
+  "description": "Tools for agora framework",
   "main": "dist/index.js",
   "author": "Fati CHEN <fati.chen@lirmm.fr>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "prepare": "tsc"
   },
   "dependencies": {
     "@types/delaunator": "^2.0.0",

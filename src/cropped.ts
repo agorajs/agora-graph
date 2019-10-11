@@ -1,6 +1,6 @@
 import _ from 'lodash';
+import { left, top } from './box';
 import { Graph } from './graph';
-import { left, top, right, bottom } from './box';
 
 export function crop(graph: Graph): Graph {
   let minX = left(left(graph.nodes));
