@@ -24,11 +24,13 @@ export interface Node extends Point, Box {
     y: number;
     [key: string]: any;
   };
+  meta?: { [key: string]: any };
 }
 
 export interface Edge<T = number> {
   source: T;
   target: T;
+  meta?: { [key: string]: any };
 }
 
 export interface Graph<T = number> {
