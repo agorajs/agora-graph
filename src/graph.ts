@@ -8,7 +8,8 @@ export interface CartesianVector extends Point {}
 export interface PolarVector {
   length: number;
   theta: number;
-  angle: number;
+  /** @deprecated */
+  angle?: number;
 }
 
 export interface Box {
@@ -19,9 +20,7 @@ export interface Box {
 export interface Node extends Point, Box {
   index: number;
   label: string;
-  /**
-   * @deprecated use meta instead
-   */
+  /** @deprecated use meta instead */
   up?: {
     x: number;
     y: number;
