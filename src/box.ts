@@ -1,5 +1,5 @@
-import { Node, Box } from './graph';
 import _ from 'lodash';
+import { Box, Node } from './graph';
 
 export {
   minY as top,

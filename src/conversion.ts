@@ -1,4 +1,4 @@
-import { PolarVector, CartesianVector } from './graph';
+import { CartesianVector, PolarVector } from './graph';
 import { length } from './vector';
 
 const ROUND_PRECISION = -14;
