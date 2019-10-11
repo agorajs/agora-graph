@@ -19,6 +19,9 @@ export interface Box {
 export interface Node extends Point, Box {
   index: number;
   label: string;
+  /**
+   * @deprecated use meta instead
+   */
   up?: {
     x: number;
     y: number;
@@ -36,4 +39,5 @@ export interface Edge<T = number> {
 export interface Graph<T = number> {
   nodes: Node[];
   edges: Edge<T>[];
+  meta?: { [key: string]: any };
 }
