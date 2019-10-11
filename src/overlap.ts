@@ -1,48 +1,78 @@
 import _ from 'lodash';
-import { Node, CartesianVector, Graph, Edge } from './graph';
 import { left, right } from './box';
-import { normX, normY } from './point';
+import { Edge, Node } from './graph';
 import { NodeMap } from './node-map';
+import { normX, normY } from './point';
+
+const EPSILON = Math.pow(10, -12);
+const PADDING = 0;
+type Options = {
+  padding?: number;
+  epsilon?: number;
+};
+
+const defaultOptions = { padding: PADDING, epsilon: EPSILON };
 
 /**
  * @param n1
  * @param n2
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns true if the nodes overlap
  */
-export function overlap(n1: Node, n2: Node, padding: number = 0): boolean {
-  return overlapX(n1, n2, padding) && overlapY(n1, n2, padding);
+export function overlap(
+  n1: Node,
+  n2: Node,
+  options: Options = defaultOptions
+): boolean {
+  return overlapX(n1, n2, options) && overlapY(n1, n2, options);
 }
 
 /**
  * @param n1
  * @param n2
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns true if the nodes overlap on x
  */
-export function overlapX(n1: Node, n2: Node, padding: number = 0): boolean {
-  return normX(n1, n2) < (n1.width + n2.width) / 2 + +padding;
+export function overlapX(
+  n1: Node,
+  n2: Node,
+  { padding = PADDING, epsilon = EPSILON }: Options = defaultOptions
+): boolean {
+  return normX(n1, n2) - ((n1.width + n2.width) / 2 + +padding) < epsilon;
 }
 
 /**
  * @param n1
  * @param n2
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns true if the nodes overlap on y
  */
-export function overlapY(n1: Node, n2: Node, padding: number = 0): boolean {
-  return normY(n1, n2) < (n1.height + n2.height) / 2 + +padding;
+export function overlapY(
+  n1: Node,
+  n2: Node,
+  { padding = PADDING, epsilon = EPSILON }: Options = defaultOptions
+): boolean {
+  return normY(n1, n2) - ((n1.height + n2.height) / 2 + +padding) < epsilon;
 }
 
 /**
  * @param nodes
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
+ *
  * @returns true if at least two nodes of the list overlap
  */
-export function hasOverlap(nodes: Node[], padding: number = 0): boolean {
+export function hasOverlap(
+  nodes: Node[],
+  options: Options = defaultOptions
+): boolean {
+  const { padding = PADDING } = options;
   let lap = false;
   const sorted = _.sortBy(nodes, node => left(node));
 
@@ -50,7 +80,7 @@ export function hasOverlap(nodes: Node[], padding: number = 0): boolean {
     for (let j = index + 1; j < nodes.length; j++) {
       const n2 = sorted[j];
 
-      if (overlap(n1, n2, padding)) {
+      if (overlap(n1, n2, options)) {
         lap = true;
         return false; // exit _.forEach
       } else if (left(n2) > right(n1) + padding) break;
@@ -64,16 +94,17 @@ export function hasOverlap(nodes: Node[], padding: number = 0): boolean {
  * Get all the overlaps between couple of nodes
  * @param map map of nodes having their index as keys
  * @param edges
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  */
 export function edgeOverlap(
   map: NodeMap,
   edges: Edge[],
-  padding: number = 0
+  options: Options = defaultOptions
 ): boolean {
   let present = false;
   _.forEach(edges, edge => {
-    if (overlap(map[edge.source], map[edge.target], padding)) {
+    if (overlap(map[edge.source], map[edge.target], options)) {
       present = true;
       return false;
     }
@@ -82,12 +113,18 @@ export function edgeOverlap(
 }
 
 /**
- * @param {Node[]} nodes
- * @param {number} [padding]
+ * @param nodes
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns the list of all overlaps of the graph.
  */
-export function getAllOverlaps(nodes: Node[], padding: number = 0): Node[][] {
+export function getAllOverlaps(
+  nodes: Node[],
+  options: Options = defaultOptions
+): Node[][] {
+  const { padding = PADDING } = options;
+
   const sorted = _.sortBy(nodes, node => left(node));
   const overlaps: Node[][] = [];
 
@@ -95,7 +132,7 @@ export function getAllOverlaps(nodes: Node[], padding: number = 0): Node[][] {
     for (let j = index + 1; j < nodes.length; j++) {
       const n2 = sorted[j];
 
-      if (overlap(n1, n2, padding)) overlaps.push([n1, n2]);
+      if (overlap(n1, n2, options)) overlaps.push([n1, n2]);
       else if (left(n2) > right(n1) + padding) break;
     }
   });
