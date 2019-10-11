@@ -19,10 +19,15 @@ function toPolar(vector, precision) {
     return {
         length: vector_1.length(vector),
         theta: rad,
-        angle: round((rad * 180) / Math.PI, precision)
+        angle: getAngle(rad, precision)
     };
 }
 exports.toPolar = toPolar;
+function getAngle(theta, precision) {
+    if (precision === void 0) { precision = ROUND_PRECISION; }
+    return round((theta * 180) / Math.PI, precision);
+}
+exports.getAngle = getAngle;
 function round(number, precision) {
     if (precision === void 0) { precision = 0; }
     var multiplier = Math.pow(10, -precision);

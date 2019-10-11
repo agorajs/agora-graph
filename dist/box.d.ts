@@ -1,4 +1,4 @@
-import { Node, Box } from './graph';
+import { Box, Node } from './graph';
 export { minY as top, maxX as right, maxY as bottom, minX as left, setMinY as setTop, setMaxX as setRight, setMaxY as setBottom, setMinX as setLeft };
 /**
  * diagonal length of the box
