@@ -309,49 +309,73 @@ function _slicedToArray(arr, i) {
 
 var slicedToArray = _slicedToArray;
 
+var EPSILON = Math.pow(10, -12);
+var PADDING = 0;
+var defaultOptions = {
+  padding: PADDING,
+  epsilon: EPSILON
+};
 /**
  * @param n1
  * @param n2
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns true if the nodes overlap
  */
+
 function overlap(n1, n2) {
-  var padding = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  return overlapX(n1, n2, padding) && overlapY(n1, n2, padding);
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultOptions;
+  return overlapX(n1, n2, options) && overlapY(n1, n2, options);
 }
 /**
  * @param n1
  * @param n2
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns true if the nodes overlap on x
  */
 
 function overlapX(n1, n2) {
-  var padding = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  return normX(n1, n2) < (n1.width + n2.width) / 2 + +padding;
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultOptions,
+      _ref$padding = _ref.padding,
+      padding = _ref$padding === void 0 ? PADDING : _ref$padding,
+      _ref$epsilon = _ref.epsilon,
+      epsilon = _ref$epsilon === void 0 ? EPSILON : _ref$epsilon;
+
+  return normX(n1, n2) - ((n1.width + n2.width) / 2 + +padding) < epsilon;
 }
 /**
  * @param n1
  * @param n2
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns true if the nodes overlap on y
  */
 
 function overlapY(n1, n2) {
-  var padding = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  return normY(n1, n2) < (n1.height + n2.height) / 2 + +padding;
+  var _ref2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultOptions,
+      _ref2$padding = _ref2.padding,
+      padding = _ref2$padding === void 0 ? PADDING : _ref2$padding,
+      _ref2$epsilon = _ref2.epsilon,
+      epsilon = _ref2$epsilon === void 0 ? EPSILON : _ref2$epsilon;
+
+  return normY(n1, n2) - ((n1.height + n2.height) / 2 + +padding) < epsilon;
 }
 /**
  * @param nodes
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
+ *
  * @returns true if at least two nodes of the list overlap
  */
 
 function hasOverlap(nodes) {
-  var padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultOptions;
+  var _options$padding = options.padding,
+      padding = _options$padding === void 0 ? PADDING : _options$padding;
   var lap = false;
 
   var sorted = _.sortBy(nodes, function (node) {
@@ -362,7 +386,7 @@ function hasOverlap(nodes) {
     for (var j = index + 1; j < nodes.length; j++) {
       var n2 = sorted[j];
 
-      if (overlap(n1, n2, padding)) {
+      if (overlap(n1, n2, options)) {
         lap = true;
         return false; // exit _.forEach
       } else if (minX(n2) > maxX(n1) + padding) break;
@@ -375,15 +399,16 @@ function hasOverlap(nodes) {
  * Get all the overlaps between couple of nodes
  * @param map map of nodes having their index as keys
  * @param edges
- * @param padding
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  */
 
 function edgeOverlap(map, edges) {
-  var padding = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultOptions;
   var present = false;
 
   _.forEach(edges, function (edge) {
-    if (overlap(map[edge.source], map[edge.target], padding)) {
+    if (overlap(map[edge.source], map[edge.target], options)) {
       present = true;
       return false;
     }
@@ -392,14 +417,17 @@ function edgeOverlap(map, edges) {
   return present;
 }
 /**
- * @param {Node[]} nodes
- * @param {number} [padding]
+ * @param nodes
+ * @param options.padding
+ * @param options.epsilon accepted overlap value, really small, used for float imprecisions
  *
  * @returns the list of all overlaps of the graph.
  */
 
 function getAllOverlaps(nodes) {
-  var padding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaultOptions;
+  var _options$padding2 = options.padding,
+      padding = _options$padding2 === void 0 ? PADDING : _options$padding2;
 
   var sorted = _.sortBy(nodes, function (node) {
     return minX(node);
@@ -410,7 +438,7 @@ function getAllOverlaps(nodes) {
   _.forEach(sorted, function (n1, index) {
     for (var j = index + 1; j < nodes.length; j++) {
       var n2 = sorted[j];
-      if (overlap(n1, n2, padding)) overlaps.push([n1, n2]);else if (minX(n2) > maxX(n1) + padding) break;
+      if (overlap(n1, n2, options)) overlaps.push([n1, n2]);else if (minX(n2) > maxX(n1) + padding) break;
     }
   });
 
