@@ -1,4 +1,4 @@
-import { Graph } from './graph';
+import type { Graph } from './graph';
 
 export interface Function<T> {
   (graph: Graph, options?: T): Result;

@@ -1,4 +1,4 @@
-import { CartesianVector } from './graph';
+import type { CartesianVector } from './graph';
 import { delta } from './point';
 
 export { magnitude as length };

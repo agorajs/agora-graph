@@ -2,19 +2,30 @@
   "name": "agora-graph",
   "version": "1.2.0",
   "description": "Tools for agora framework",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/agora-graph.min.js",
   "author": "Fati CHEN <fati.chen@lirmm.fr>",
   "license": "MIT",
   "scripts": {
-    "prepare": "tsc"
+    "build": "rollup -c"
   },
   "dependencies": {
-    "@types/delaunator": "^2.0.0",
-    "@types/lodash": "^4.14.116",
-    "delaunator": "^3.0.2",
+    "@types/lodash": "^4.14.155",
+    "delaunator": "^4.0.1",
     "lodash": "4.17.15"
   },
   "devDependencies": {
-    "typescript": "^3.6.3"
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
+    "@rollup/plugin-babel": "^5.0.3",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@rollup/plugin-typescript": "^4.1.2",
+    "rollup": "^2.15.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "typescript": "^3.9.5"
   }
 }

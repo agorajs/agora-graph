@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Node } from './graph';
+import type { Node } from './graph';
 
 export interface NodeMap {
   [index: string]: Node;
@@ -8,7 +8,7 @@ export interface NodeMap {
 export function nodeMap(nodes: Node[]) {
   const aggreg: NodeMap = {};
 
-  _.forEach(nodes, node => {
+  _.forEach(nodes, (node) => {
     aggreg[node.index] = node;
   });
 

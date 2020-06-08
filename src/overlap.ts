@@ -1,8 +1,8 @@
 import _ from 'lodash';
+import type { Node, Edge } from './graph';
 import { left, right } from './box';
-import { Edge, Node } from './graph';
-import { NodeMap } from './node-map';
 import { normX, normY } from './point';
+import type { NodeMap } from './node-map';
 
 const EPSILON = Math.pow(10, -12);
 const PADDING = 0;
@@ -12,7 +12,6 @@ type Options = {
 };
 
 const defaultOptions = { padding: PADDING, epsilon: EPSILON };
-
 /**
  * @param n1
  * @param n2
@@ -74,7 +73,7 @@ export function hasOverlap(
 ): boolean {
   const { padding = PADDING } = options;
   let lap = false;
-  const sorted = _.sortBy(nodes, node => left(node));
+  const sorted = _.sortBy(nodes, (node) => left(node));
 
   _.forEach(sorted, (n1, index) => {
     for (let j = index + 1; j < nodes.length; j++) {
@@ -103,7 +102,7 @@ export function edgeOverlap(
   options: Options = defaultOptions
 ): boolean {
   let present = false;
-  _.forEach(edges, edge => {
+  _.forEach(edges, (edge) => {
     if (overlap(map[edge.source], map[edge.target], options)) {
       present = true;
       return false;
@@ -125,7 +124,7 @@ export function getAllOverlaps(
 ): Node[][] {
   const { padding = PADDING } = options;
 
-  const sorted = _.sortBy(nodes, node => left(node));
+  const sorted = _.sortBy(nodes, (node) => left(node));
   const overlaps: Node[][] = [];
 
   _.forEach(sorted, (n1, index) => {

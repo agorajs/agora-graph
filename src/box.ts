@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Box, Node } from './graph';
+import type { Box, Node } from './graph';
 
 export {
   minY as top,
@@ -9,7 +9,7 @@ export {
   setMinY as setTop,
   setMaxX as setRight,
   setMaxY as setBottom,
-  setMinX as setLeft
+  setMinX as setLeft,
 };
 /**
  * diagonal length of the box
@@ -30,7 +30,7 @@ export function minX(node: Node): number;
  */
 export function minX(nodes: Node[]): Node;
 export function minX(node: Node | Node[]): any {
-  if (node instanceof Array) return _.minBy(node, v => minX(v));
+  if (node instanceof Array) return _.minBy(node, (v) => minX(v));
 
   return node.x - node.width / 2;
 }
@@ -44,7 +44,7 @@ export function maxX(node: Node): number;
  */
 export function maxX(nodes: Node[]): Node;
 export function maxX(node: Node | Node[]): any {
-  if (node instanceof Array) return _.maxBy(node, v => maxX(v));
+  if (node instanceof Array) return _.maxBy(node, (v) => maxX(v));
 
   return node.x + node.width / 2;
 }
@@ -60,7 +60,7 @@ export function minY(node: Node): number;
  */
 export function minY(nodes: Node[]): Node;
 export function minY(node: Node | Node[]): any {
-  if (node instanceof Array) return _.minBy(node, v => minY(v));
+  if (node instanceof Array) return _.minBy(node, (v) => minY(v));
 
   return node.y - node.height / 2;
 }
@@ -76,7 +76,7 @@ export function maxY(node: Node): number;
  */
 export function maxY(nodes: Node[]): Node;
 export function maxY(node: Node | Node[]): any {
-  if (node instanceof Array) return _.maxBy(node, v => maxY(v));
+  if (node instanceof Array) return _.maxBy(node, (v) => maxY(v));
 
   return node.y + node.height / 2;
 }
