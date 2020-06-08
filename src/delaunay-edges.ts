@@ -1,19 +1,23 @@
 import Delaunator from 'delaunator';
 import _ from 'lodash';
-import { Edge, Node } from './graph';
+import type { Edge, Node } from './graph';
 import { getAllOverlaps } from './overlap';
 
 export default delaunay;
 
 export function delaunay(nodes: Node[]): Edge[] {
-  const del = Delaunator.from(nodes, node => node.x, node => node.y);
+  const del = Delaunator.from(
+    nodes,
+    (node) => node.x,
+    (node) => node.y
+  );
   const hastable: boolean[][] = [];
   const triangles = _.chunk(del.triangles, 3);
 
   // create edges
   const edges: Edge<number>[] = [];
 
-  _.forEach(triangles, triangle => {
+  _.forEach(triangles, (triangle) => {
     triangle.sort((a, b) => +a - +b);
 
     const a = +triangle[0],
@@ -23,18 +27,18 @@ export function delaunay(nodes: Node[]): Edge[] {
     if (addable(hastable, a, b))
       edges.push({
         source: nodes[a].index,
-        target: nodes[b].index
+        target: nodes[b].index,
       });
 
     if (addable(hastable, b, c))
       edges.push({
         source: nodes[b].index,
-        target: nodes[c].index
+        target: nodes[c].index,
       });
     if (addable(hastable, a, c))
       edges.push({
         source: nodes[a].index,
-        target: nodes[c].index
+        target: nodes[c].index,
       });
   });
 
@@ -66,11 +70,11 @@ export function augmented(nodes: Node[], padding: number): Edge[] {
  */
 function overlaps(nodes: Node[], padding: number): Edge[] {
   return _(getAllOverlaps(nodes, padding))
-    .map(pair => {
+    .map((pair) => {
       pair.sort((a, b) => a.index - b.index);
       return {
         source: pair[0].index,
-        target: pair[1].index
+        target: pair[1].index,
       };
     })
     .sortBy(['source', 'target'])
@@ -88,9 +92,9 @@ function merge(edges1: Edge[], edges2: Edge[]): Edge[] {
 
   const added: Edge[] = [];
 
-  _.forEach(iterated, e1 => {
+  _.forEach(iterated, (e1) => {
     let empty = true;
-    _.forEach(iteratee, e2 => {
+    _.forEach(iteratee, (e2) => {
       if (e1.source === e2.source && e1.target === e2.target) {
         empty = false;
         return false;

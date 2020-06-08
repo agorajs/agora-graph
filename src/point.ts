@@ -1,4 +1,4 @@
-import { Point, CartesianVector } from './graph';
+import type { Point, CartesianVector } from './graph';
 
 export { deltaX as Δx, deltaY as Δy, delta as Δ };
 

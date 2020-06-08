@@ -1,4 +1,4 @@
-import { CartesianVector as Vector, Node } from './graph';
+import type { CartesianVector as Vector, Node } from './graph';
 import { Δ, Δx, Δy } from './point';
 import { mult } from './vector';
 
@@ -13,7 +13,7 @@ export function optimalVector(n1: Node, n2: Node, padding: number = 0): Vector {
   // optimal distance for each axis
   const desired = {
     x: +(n1.width + n2.width) / 2 + +padding,
-    y: +(n1.height + n2.height) / 2 + +padding
+    y: +(n1.height + n2.height) / 2 + +padding,
   };
 
   // distances

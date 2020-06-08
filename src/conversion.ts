@@ -1,4 +1,4 @@
-import { CartesianVector, PolarVector } from './graph';
+import type { CartesianVector, PolarVector } from './graph';
 import { length } from './vector';
 
 const ROUND_PRECISION = -14;
@@ -9,7 +9,7 @@ export function toCartesian(
 ): CartesianVector {
   return {
     x: round(vector.length * Math.cos(vector.theta), precision),
-    y: round(vector.length * Math.sin(vector.theta), precision)
+    y: round(vector.length * Math.sin(vector.theta), precision),
   };
 }
 
@@ -24,7 +24,7 @@ export function toPolar(
   return {
     length: length(vector),
     theta: rad,
-    angle: getAngle(rad, precision)
+    angle: getAngle(rad, precision),
   };
 }
 

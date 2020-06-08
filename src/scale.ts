@@ -1,4 +1,4 @@
-import { Box } from './graph'
+import type { Box } from './graph';
 
 /**
  *
@@ -8,14 +8,14 @@ import { Box } from './graph'
  * @returns function which converts the coordinate for the projection
  */
 export function createScale(initial: Box, frame: Box): (ref: number) => number {
-  const scale: any = function(initial: number) {
-    return scale.ratio * initial
-  }
+  const scale: any = function (initial: number) {
+    return scale.ratio * initial;
+  };
 
   scale.ratio = Math.min(
     frame.width / initial.width,
     frame.height / initial.height
-  )
+  );
 
-  return scale
+  return scale;
 }
