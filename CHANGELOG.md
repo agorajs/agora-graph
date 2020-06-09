@@ -1,8 +1,14 @@
 # AGORA-Graph Changelog
 
+## 1.3.2 (2020.06.09)
+
+### Features
+
+- Including typings for typescript
+
 ## 1.3.1 (2020.06.09)
 
-## Features: 
+### Features: 
 
 - Now exports to umd, es, iife and cjs
 
