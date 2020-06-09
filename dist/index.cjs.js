@@ -504,8 +504,8 @@ function addable(hastable, i, j) {
  */
 
 
-function augmented(nodes, padding) {
-  return merge(delaunay(nodes), overlaps(nodes, padding));
+function augmented(nodes, options) {
+  return merge(delaunay(nodes), overlaps(nodes, options));
 }
 /**
  * Get all overlaps of the list of nodes
@@ -513,8 +513,8 @@ function augmented(nodes, padding) {
  * @param padding
  */
 
-function overlaps(nodes, padding) {
-  return _(getAllOverlaps(nodes, padding)).map(function (pair) {
+function overlaps(nodes, options) {
+  return _(getAllOverlaps(nodes, options)).map(function (pair) {
     pair.sort(function (a, b) {
       return a.index - b.index;
     });

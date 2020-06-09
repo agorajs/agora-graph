@@ -1,6 +1,7 @@
 import Delaunator from 'delaunator';
 import _ from 'lodash';
 import type { Edge, Node } from './graph';
+import type { Options } from './overlap';
 import { getAllOverlaps } from './overlap';
 
 export default delaunay;
@@ -59,8 +60,8 @@ function addable(hastable: boolean[][], i: number, j: number) {
  * @param nodes list of nodes
  * @param padding padding between nodes
  */
-export function augmented(nodes: Node[], padding: number): Edge[] {
-  return merge(delaunay(nodes), overlaps(nodes, padding));
+export function augmented(nodes: Node[], options: Options): Edge[] {
+  return merge(delaunay(nodes), overlaps(nodes, options));
 }
 
 /**
@@ -68,8 +69,8 @@ export function augmented(nodes: Node[], padding: number): Edge[] {
  * @param nodes
  * @param padding
  */
-function overlaps(nodes: Node[], padding: number): Edge[] {
-  return _(getAllOverlaps(nodes, padding))
+function overlaps(nodes: Node[], options: Options): Edge[] {
+  return _(getAllOverlaps(nodes, options))
     .map((pair) => {
       pair.sort((a, b) => a.index - b.index);
       return {

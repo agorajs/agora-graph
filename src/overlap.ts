@@ -6,7 +6,7 @@ import type { NodeMap } from './node-map';
 
 const EPSILON = Math.pow(10, -12);
 const PADDING = 0;
-type Options = {
+export type Options = {
   padding?: number;
   epsilon?: number;
 };
