@@ -1,5 +1,11 @@
 # AGORA-Graph Changelog
 
+## 1.3.1 (2020.06.09)
+
+## Features: 
+
+- Now exports to umd, es, iife and cjs
+
 ## 1.2.0 (2019.10.11)
 
 ### Features:
