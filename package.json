@@ -1,6 +1,6 @@
 {
   "name": "agora-graph",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Tools for agora framework",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
