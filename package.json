@@ -6,6 +6,7 @@
   "module": "dist/index.esm.js",
   "iife": "dist/agora-graph.iife.min.js",
   "browser": "dist/agora-graph.min.js",
+  "types": "dist/types/index.d.ts",
   "author": "Fati CHEN <fati.chen@lirmm.fr>",
   "license": "MIT",
   "scripts": {
@@ -22,6 +23,8 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.1",
     "@rollup/plugin-babel": "^5.0.3",
