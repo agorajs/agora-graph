@@ -4,6 +4,7 @@
   "description": "Tools for agora framework",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "iife": "dist/agora-graph.iife.min.js",
   "browser": "dist/agora-graph.min.js",
   "author": "Fati CHEN <fati.chen@lirmm.fr>",
   "license": "MIT",

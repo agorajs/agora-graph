@@ -9,12 +9,20 @@ export default [
   // browser-friendly UMD build
   {
     input: 'src/index.ts',
-    output: {
-      name: 'AgoraGraph',
-      file: pkg.browser,
-      format: 'iife',
-      exports: 'named',
-    },
+    output: [
+      {
+        name: 'AgoraGraph',
+        file: pkg.iife,
+        format: 'iife',
+        exports: 'named',
+      },
+      {
+        name: 'AgoraGraph',
+        file: pkg.browser,
+        format: 'umd',
+        exports: 'named',
+      },
+    ],
     plugins: [
       resolve({ extensions }), // so Rollup can find `ms`
       commonjs(), // so Rollup can convert `ms` to an ES module
